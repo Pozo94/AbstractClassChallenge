@@ -11,13 +11,14 @@ public class MyLinkedList implements NodeList {
 
     @Override
     public ListItem getRoot() {
-        return null;
+        return this.root;
     }
 
     @Override
     public boolean addListItem(ListItem newItem) {
         if (this.root == null) {
             this.root = newItem;
+            System.out.println(this.root.getValue());
             return true;
         }
         ListItem currentItem = this.root;
@@ -28,9 +29,9 @@ public class MyLinkedList implements NodeList {
                     currentItem = currentItem.next();
                 } else {
                     currentItem.setNextItem(newItem).setPreviousItem(currentItem);
-
+                    return true;
                 }
-                return true;
+
             } else if (comparison > 0) {
                 if (currentItem.previous() != null) {
                     currentItem.previous().setNextItem(newItem).setPreviousItem(currentItem.previous());
@@ -52,22 +53,22 @@ public class MyLinkedList implements NodeList {
     }
 
 
+    @Override
+    public void traverse(ListItem root) {
+        if (root == null) {
+            System.out.println("List is empty...");
+        } else {
+            while (root != null) {
+                System.out.println(root.getValue());
+                root = root.next();
 
-@Override
-public void traverse(ListItem root){
-    if(root==null){
-        System.out.println("List is empty...");
-    }
-    while(root!=null){
-        System.out.println(root.getValue());
-        root=root.next();
-
-    }
-
+            }
         }
-@Override
-public boolean removeItem(){
+    }
+
+    @Override
+    public boolean removeItem() {
 
         return false;
-        }
-        }
+    }
+}
