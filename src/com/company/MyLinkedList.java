@@ -18,7 +18,6 @@ public class MyLinkedList implements NodeList {
     public boolean addListItem(ListItem newItem) {
         if (this.root == null) {
             this.root = newItem;
-            System.out.println(this.root.getValue());
             return true;
         }
         ListItem currentItem = this.root;
@@ -67,8 +66,32 @@ public class MyLinkedList implements NodeList {
     }
 
     @Override
-    public boolean removeItem() {
+    public boolean removeItem(ListItem item) {
 
+        if (item != null) {
+            System.out.println("Removing " + item.getValue() + " item.");
+        }
+        ListItem currentItem = this.root;
+        while (currentItem != null) {
+            int comparason = currentItem.compareTo(item);
+            if (comparason == 0) {
+                if (currentItem == this.root) {
+                    this.root = currentItem.next();
+                    return true;
+                }
+                else {
+                    currentItem.previous().setNextItem(currentItem.next());
+                    if (currentItem.next() != null)
+                        currentItem.next().setPreviousItem(currentItem.previous());
+                    return true;
+                }
+            } else if (comparason < 0) {
+                currentItem = currentItem.next();
+            } else {
+                return false;
+            }
+        }
         return false;
+
     }
 }
